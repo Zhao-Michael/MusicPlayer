@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="LrcPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             xmlns:local="clr-namespace:MyMusicWPF"
+             d:DesignHeight="300" d:DesignWidth="300" >
+    <UserControl.Resources>
+        <Storyboard x:Key="foregroundani1">
+            <ColorAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Foreground.Color" To="{DynamicResource MainColor}"></ColorAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="foregroundani2">
+            <ColorAnimation Duration="0:0:0.7" Storyboard.TargetProperty="Foreground.Color" To="White"></ColorAnimation>
+        </Storyboard>
+
+        <Storyboard x:Key="fontani">
+
+
+        </Storyboard>
+    </UserControl.Resources>
+    <Grid Name="maingrid" ClipToBounds="true">
+
+        <ItemsControl Name="m_ItemControl"  >
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid Background="Transparent" Name="lrcgrid">
+                        <TextBlock Margin="2,8" x:Name="lrctext"    Foreground="White" Text="{Binding Path=text}"  TextWrapping="WrapWithOverflow" TextAlignment="Center">
+                            <TextBlock.Effect>
+                                <DropShadowEffect ShadowDepth="2" BlurRadius="10" Opacity="0.8" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Name="LrcPanelTooltip" FontSize="13.5" Foreground="White" Opacity="0" HorizontalAlignment="Center"  VerticalAlignment="Center" >这里的黎明静悄悄...</TextBlock>
+
+    </Grid>
+</UserControl>

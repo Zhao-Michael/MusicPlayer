@@ -1,0 +1,514 @@
+﻿<Window x:Class="SearchLRC"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Name="SerachLRC"
+    Height="340" Width="470" WindowStartupLocation="CenterScreen" Loaded="SerachLRC_Loaded" ShowInTaskbar="False" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" ResizeMode="NoResize"  AllowsTransparency="True" WindowStyle="None" Background="{DynamicResource MainColorBrush}" >
+
+    <Window.Template>
+        <ControlTemplate TargetType="Window" >
+            <Grid Name="MainGrid" Margin="10" >
+                <Grid.Resources>
+                    <Storyboard x:Key="LoadWinAni" >
+                        <DoubleAnimation Storyboard.TargetName="winGSStop1" Storyboard.TargetProperty="Offset" From="0" To="1" Duration="0:0:0.3" BeginTime="0:0:0.3"></DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="winGSStop2" Storyboard.TargetProperty="Offset" From="0" To="1" Duration="0:0:0.3"></DoubleAnimation>
+                    </Storyboard>
+
+                    <Storyboard x:Key="UnLoadWinAni"  >
+                        <DoubleAnimation Storyboard.TargetName="winGSStop1" Storyboard.TargetProperty="Offset" From="1" To="0" Duration="0:0:0.3"></DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="winGSStop2" Storyboard.TargetProperty="Offset" From="1" To="0" Duration="0:0:0.3" BeginTime="0:0:0.3"  ></DoubleAnimation>
+                    </Storyboard>
+
+                    <Storyboard x:Key="ShowMsgAni">
+                        <DoubleAnimation Storyboard.TargetName="borderMsg" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3" BeginTime="0:0:0"></DoubleAnimation>
+                        <DoubleAnimation Storyboard.TargetName="borderMsg" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.6" BeginTime="0:0:2"></DoubleAnimation>
+                    </Storyboard>
+
+                </Grid.Resources>
+                <Grid.OpacityMask>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStopCollection>
+                            <GradientStop x:Name="winGSStop1" Color="#ffffffff"  Offset="0" ></GradientStop>
+                            <GradientStop x:Name="winGSStop2" Color="#00ffffff" Offset="0" ></GradientStop>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Grid.OpacityMask>
+
+                <Border Background="{DynamicResource ResourceKey=MainColorBrush}" Opacity="0.8" >
+                    <Border.Effect>
+                        <!--<DropShadowEffect ShadowDepth="0" Color="{DynamicResource ResourceKey=MainColor }" BlurRadius="10" />-->
+                        <BlurEffect Radius="15" />
+                    </Border.Effect>
+                </Border>
+                <Border BorderThickness="1" BorderBrush="{DynamicResource MainColorBrush}" Margin="0"  >
+                    <Border.Effect>
+                        <!--<DropShadowEffect ShadowDepth="0" Color="{DynamicResource ResourceKey=MainColor }" BlurRadius="10" />-->
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="15" Color="{DynamicResource MainColor}"/>
+                    </Border.Effect>
+                </Border>
+
+                <ContentPresenter  Margin="{TemplateBinding Padding}" Content="{TemplateBinding Content}"/>
+
+                <Border Name="borderMsg" Background="White" BorderThickness="2" Opacity="0" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="{DynamicResource MainColorBrush}">
+                    <Border.Effect>
+                        <DropShadowEffect Color="White" ShadowDepth="0" BlurRadius="10"/>
+                    </Border.Effect>
+                    <TextBlock TextAlignment="Center" Name="textMessage" Margin="8,6"></TextBlock>
+                </Border>
+
+            </Grid>
+        </ControlTemplate>
+    </Window.Template>
+
+    <Window.Resources>
+
+        <SolidColorBrush x:Key="searchlrcMainBrush" Color="white" ></SolidColorBrush>
+
+        <Storyboard x:Key="serarchsb1"  RepeatBehavior="Forever" BeginTime="0:0:0">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="ellipse1" >
+                <LinearThicknessKeyFrame Value="-10,0,0,0" KeyTime="0:0:0"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="170,0,0,0" KeyTime="0:0:0.7"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="270,0,0,0" KeyTime="0:0:2.5"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="430,0,0,0" KeyTime="0:0:3.2"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="450,0,0,0" KeyTime="0:0:3.3"></LinearThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="serarchsb2"  RepeatBehavior="Forever" BeginTime="0:0:0.2">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="ellipse2" >
+                <LinearThicknessKeyFrame Value="-10,0,0,0" KeyTime="0:0:0"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="170,0,0,0" KeyTime="0:0:0.7"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="270,0,0,0" KeyTime="0:0:2.5"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="430,0,0,0" KeyTime="0:0:3.2"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="450,0,0,0" KeyTime="0:0:3.3"></LinearThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="serarchsb3"  RepeatBehavior="Forever" BeginTime="0:0:0.4">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="ellipse3" >
+                <LinearThicknessKeyFrame Value="-10,0,0,0" KeyTime="0:0:0"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="170,0,0,0" KeyTime="0:0:0.7"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="270,0,0,0" KeyTime="0:0:2.5"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="430,0,0,0" KeyTime="0:0:3.2"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="450,0,0,0" KeyTime="0:0:3.3"></LinearThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="serarchsb4"  RepeatBehavior="Forever" BeginTime="0:0:0.6">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="ellipse4" >
+                <LinearThicknessKeyFrame Value="-10,0,0,0" KeyTime="0:0:0"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="170,0,0,0" KeyTime="0:0:0.7"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="270,0,0,0" KeyTime="0:0:2.5"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="430,0,0,0" KeyTime="0:0:3.2"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="450,0,0,0" KeyTime="0:0:3.3"></LinearThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Key="serarchsb5"  RepeatBehavior="Forever" BeginTime="0:0:0.8">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" Storyboard.TargetName="ellipse5" >
+                <LinearThicknessKeyFrame Value="-10,0,0,0" KeyTime="0:0:0"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="170,0,0,0" KeyTime="0:0:0.7"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="270,0,0,0" KeyTime="0:0:2.5"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="430,0,0,0" KeyTime="0:0:3.2"></LinearThicknessKeyFrame>
+                <LinearThicknessKeyFrame Value="450,0,0,0" KeyTime="0:0:3.3"></LinearThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Style x:Key="LRCDisplay" TargetType="ContentControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ContentControl">
+                        <Border Name="lrcBorder" Margin="18,5,5,10" MouseDown="lrcBorder_MouseDown" Width="410" Height="220" BorderBrush="{DynamicResource searchlrcMainBrush}" BorderThickness="1" Cursor="Hand" Background="Transparent">
+                            <TextBlock Name="lrcTextBlock" Text="{TemplateBinding Content}" Margin="5" Foreground="{DynamicResource searchlrcMainBrush}"></TextBlock>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Opacity" Value="0.8" TargetName="lrcTextBlock"></Setter>
+                                <Setter Property="BorderThickness" Value="2" TargetName="lrcBorder"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid MouseDown="Grid_MouseDown" Background="Transparent" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <Border Name="borderClose" MouseDown="borderClose_MouseDown" Width="20" Height="20" Opacity="0.6" RenderTransformOrigin="0.5,0.5" Background="Transparent" Margin="10,0,0,10" HorizontalAlignment="Right" VerticalAlignment="Top" >
+            <Grid Margin="3,3,3,3" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform x:Name="GridCloseRotate" Angle="0" />
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Line X1="2" Y1="2" X2="12" Y2="12"  Stroke="{DynamicResource searchlrcMainBrush}" ClipToBounds="True" StrokeThickness="2" />
+                <Line X1="2" Y1="2" X2="12" Y2="12"  Stroke="{DynamicResource searchlrcMainBrush}" ClipToBounds="True" RenderTransformOrigin="0.5,0.5" StrokeThickness="2" >
+                    <Line.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Line.RenderTransform>
+                </Line>
+            </Grid>
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Border.MouseEnter" SourceName="borderClose">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0.6" To="1" Duration="0:0:0.3"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="GridCloseRotate" Storyboard.TargetProperty="Angle" From="0" To="90" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Border.MouseLeave" SourceName="borderClose">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity" From="1" To="0.6" Duration="0:0:0.3"></DoubleAnimation>
+                            <DoubleAnimation Storyboard.TargetName="GridCloseRotate" Storyboard.TargetProperty="Angle" From="90" To="0" Duration="0:0:0.2" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+
+        </Border>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="15*"/>
+                <RowDefinition Height="10*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBox Name="textboxTitle" Width="316" HorizontalAlignment="Left" KeyDown="textbox_KeyDown"  Margin="38,10,0,0" Foreground="White" CaretBrush="{DynamicResource searchlrcMainBrush}" ToolTip="{Binding Path=Text,RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2" >
+                <TextBox.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="13*"/>
+                                <ColumnDefinition Width="66*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="歌曲：" TextAlignment="Center" Foreground="{DynamicResource searchlrcMainBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="16" Margin="8" Width="36"></TextBlock>
+                            <ScrollViewer  Grid.Column="1" Margin="1,0,3,5"  MaxWidth="102" x:Name="PART_ContentHost" >
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                        <Grid Margin="-77,8,-80,1">
+                                            <ScrollContentPresenter  Margin="{TemplateBinding Padding}"  Content="{TemplateBinding Content}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                            </ScrollViewer>
+                            <Border Grid.Column="1" BorderBrush="{DynamicResource searchlrcMainBrush}" BorderThickness="0,0,0,1" Margin="1,0,0,6" Grid.ColumnSpan="1"></Border>
+                        </Grid>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+
+            <TextBox Grid.Row="1" Name="textboxArtist" Width="316" HorizontalAlignment="Left" KeyDown="textbox_KeyDown" Margin="38,0,0,00" Foreground="white" CaretBrush="{DynamicResource searchlrcMainBrush}" ToolTip="{Binding Path=Text,RelativeSource={RelativeSource Self}}" Grid.ColumnSpan="2">
+                <TextBox.Template>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="13*"/>
+                                <ColumnDefinition Width="66*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="歌手：" TextAlignment="Center" Foreground="{DynamicResource searchlrcMainBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="16" Margin="8" Width="36"></TextBlock>
+                            <ScrollViewer  Grid.Column="1" Margin="1,0,3,5"  MaxWidth="102" x:Name="PART_ContentHost" >
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                                        <Grid Margin="-77,4,-80,-0.333">
+                                            <ScrollContentPresenter  Margin="{TemplateBinding Padding}"  Content="{TemplateBinding Content}" />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                            </ScrollViewer>
+                            <Border Grid.Column="1" BorderBrush="{DynamicResource searchlrcMainBrush}" BorderThickness="0,0,0,1" Margin="1,0,0,6" Grid.ColumnSpan="1"></Border>
+                        </Grid>
+                    </ControlTemplate>
+                </TextBox.Template>
+            </TextBox>
+
+            <Button Name="btnSerach" Grid.Column="1" Width="60" Height="24" Margin="67,34,23,12" Click="btnSerach_Click" Grid.RowSpan="2">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Ellipse Fill="Transparent" Name="btnellipse"   Margin="18,0" Stroke="{DynamicResource searchlrcMainBrush}"></Ellipse>
+                            <Line X1="25" Y1="12" X2="35" Y2="12" Stroke="{DynamicResource searchlrcMainBrush}" StrokeDashCap="Round" StrokeEndLineCap="Round" ></Line>
+                            <Line X1="30" Y1="8" X2="35" Y2="12" Stroke="{DynamicResource searchlrcMainBrush}" ></Line>
+                            <Line X1="30" Y1="16" X2="35" Y2="12" Stroke="{DynamicResource searchlrcMainBrush}" ></Line>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True" >
+                                <Setter Property="Ellipse.StrokeThickness" Value="2" TargetName="btnellipse" ></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Grid Name="ellipse_Grid" Grid.ColumnSpan="2" Margin="0,28,0,-25" ClipToBounds="True" Grid.Row="1">
+
+                <Ellipse Name="ellipse1" Height="6" Width="6" Fill="White" Margin="-10,0,0,0" Opacity="1" HorizontalAlignment="Left"  />
+
+
+
+                <Ellipse Name="ellipse2" Height="6" Width="6" Fill="White" Margin="-10,0,0,0" Opacity="1" HorizontalAlignment="Left"  />
+
+
+
+                <Ellipse Name="ellipse3" Height="6" Width="6" Fill="White" Margin="-10,0,0,0" Opacity="1" HorizontalAlignment="Left"  />
+
+
+
+                <Ellipse Name="ellipse4" Height="6" Width="6" Fill="White" Margin="-10,0,0,0" Opacity="1" HorizontalAlignment="Left"  />
+
+
+
+                <Ellipse Name="ellipse5" Height="6" Width="6" Fill="White" Margin="-10,0,0,0" Opacity="1" HorizontalAlignment="Left"  />
+
+
+            </Grid>
+
+
+        </Grid>
+        <TextBlock Name="labelResult"  HorizontalAlignment="Center" Margin="0,2,0,224" VerticalAlignment="Center" Grid.Row="1" Text="" TextAlignment="Center" Foreground="White" FontSize="11"  Height="24"  />
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <ScrollViewer>
+                <ScrollViewer.Resources>
+
+                    <!-- 滚动条样式-->
+                    <Style TargetType="ScrollBar" >
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ScrollBar">
+
+                                    <Grid x:Name="GridRoot" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"  >
+
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition MaxHeight="18" />
+                                            <RowDefinition Height="0.00001*" />
+                                            <RowDefinition MaxHeight="18" />
+                                        </Grid.RowDefinitions>
+                                        <Border x:Name="scrollBorder" Opacity="1" BorderBrush="{DynamicResource MainColorBrush }" Margin="0"  Grid.RowSpan="3">
+                                            <Border.Effect>
+                                                <DropShadowEffect Color="{DynamicResource MainColor }" ShadowDepth="0" BlurRadius="2"/>
+                                            </Border.Effect>
+                                        </Border>
+                                        <!--上按钮-->
+                                        <RepeatButton x:Name="DecreaseRepeat"    Command="ScrollBar.LineUpCommand"  BorderBrush="Transparent"  >
+
+                                            <RepeatButton.Style>
+                                                <Style TargetType="RepeatButton" >
+
+
+                                                    <Setter Property="Template" >
+                                                        <Setter.Value>
+                                                            <ControlTemplate>
+                                                                <Grid Margin="0,0,0,0" Name="Grid" Background="Transparent" Opacity="0.5" >
+                                                                    <Path x:Name="TopArrow" Margin="5,4,5,4" Fill="White" Stroke="White"   Stretch="Fill"  StrokeThickness="1" Data="M5.2422477,11.132184 L11.5544,11.132184 8.6412958,4.4969033 z"  />
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger  Property="IsMouseOver" Value="true">
+                                                                        <Trigger.EnterActions>
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.5" To="0.9" Duration="0:0:0.3" />
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </Trigger.EnterActions>
+                                                                        <Trigger.ExitActions >
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.9" To="0.5" Duration="0:0:0.3" />
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </Trigger.ExitActions>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </RepeatButton.Style>
+
+                                        </RepeatButton>
+
+                                        <Track Grid.Row="1" x:Name="PART_Track" IsDirectionReversed="True"   >
+
+                                            <Track.DecreaseRepeatButton>
+                                                <!--上空白-->
+                                                <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Style="{DynamicResource myScrollLongRepeatButtonStyle}"/>
+                                            </Track.DecreaseRepeatButton>
+                                            <Track.Thumb  >
+                                                <!--滑块-->
+                                                <Thumb  MinHeight="30" Style="{DynamicResource myThumb}"  />
+                                            </Track.Thumb>
+                                            <Track.IncreaseRepeatButton>
+                                                <!--下空白-->
+                                                <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand"   Style="{DynamicResource myScrollLongRepeatButtonStyle}"/>
+                                            </Track.IncreaseRepeatButton>
+                                        </Track>
+
+                                        <!--下按钮-->
+                                        <RepeatButton Grid.Row="2" x:Name="IncreaseRepeat" Command="ScrollBar.LineDownCommand"  Background="Transparent" BorderBrush="Transparent">
+                                            <RepeatButton.Style>
+                                                <Style TargetType="RepeatButton" >
+                                                    <Setter Property="Template" >
+                                                        <Setter.Value>
+                                                            <ControlTemplate>
+                                                                <Grid Name="Grid" Margin="0,0,0,0" Opacity="0.5"  >
+                                                                    <Path x:Name="BottomArrow" Margin="5,4,5,4"   VerticalAlignment="Stretch" Height="Auto" Fill="White" Stretch="Fill" Stroke="White" StrokeThickness="1" Data="M5.2422477,11.132184 L11.5544,11.132184 8.6412958,4.4969033 z" RenderTransformOrigin="0.5,0.5">
+                                                                        <Path.RenderTransform>
+                                                                            <TransformGroup>
+                                                                                <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                                                <SkewTransform AngleX="0" AngleY="0" />
+                                                                                <RotateTransform Angle="180" />
+                                                                                <TranslateTransform X="0" Y="0" />
+                                                                            </TransformGroup>
+                                                                        </Path.RenderTransform>
+                                                                    </Path>
+                                                                </Grid>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger  Property="IsMouseOver" Value="true">
+                                                                        <Trigger.EnterActions>
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.5" To="0.9" Duration="0:0:0.3" />
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </Trigger.EnterActions>
+                                                                        <Trigger.ExitActions >
+                                                                            <BeginStoryboard>
+                                                                                <Storyboard>
+                                                                                    <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.9" To="0.5" Duration="0:0:0.3" />
+                                                                                </Storyboard>
+                                                                            </BeginStoryboard>
+                                                                        </Trigger.ExitActions>
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </RepeatButton.Style>
+                                        </RepeatButton>
+
+                                    </Grid>
+
+
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="Orientation" Value="Horizontal">
+                                            <Setter Property="LayoutTransform" TargetName="GridRoot">
+                                                <Setter.Value>
+                                                    <RotateTransform Angle="-90" />
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Setter TargetName="PART_Track" Property="Orientation" Value="Vertical" />
+                                            <Setter Property="Command" Value="ScrollBar.LineLeftCommand" TargetName="DecreaseRepeat" />
+                                            <Setter Property="Command" Value="ScrollBar.LineRightCommand" TargetName="IncreaseRepeat" />
+                                            <Setter Property="Command" Value="ScrollBar.PageLeftCommand" TargetName="PageDown" />
+                                            <Setter Property="Command" Value="ScrollBar.PageRightCommand" TargetName="PageUp" />
+                                        </Trigger>
+
+                                        <!--<EventTrigger RoutedEvent="MouseEnter" >
+                                    <BeginStoryboard  >
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetName="scrollBorder" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard> 
+                                     
+                            </EventTrigger> 
+                            <EventTrigger RoutedEvent="MouseLeave" >
+                                    <BeginStoryboard  >
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetName="scrollBorder" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard> 
+                                     
+                            </EventTrigger>-->
+                                    </ControlTemplate.Triggers>
+
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                    <Style x:Key="myThumb" TargetType="Thumb" >
+
+                        <Setter Property="Template" >
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Thumb" >
+                                    <Grid Margin="0,1,0,1" x:Name="Grid" Opacity="0.4" Background="Transparent" >
+                                        <Rectangle x:Name="HoverRectangle" MinHeight="25" Height="Auto"  Fill="white"   RadiusX="3" RadiusY="3"  Margin="5,-2,5,-2"   />
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger   Property="IsFocused" Value="True"/>
+                                        <Trigger  Property="IsMouseOver" Value="true">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.4" To="0.7" Duration="0:0:0.3" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions >
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.7" To="0.4" Duration="0:0:0.3" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                        <Trigger   Property="IsEnabled" Value="False"/>
+                                        <Trigger   Property="IsDragging" Value="True">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.7" To="0.9" Duration="0:0:0.2" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions >
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.9" To="0.7" Duration="0:0:0.2" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+                </ScrollViewer.Resources>
+
+                <WrapPanel Name="wrappanel">
+
+
+
+                </WrapPanel>
+
+            </ScrollViewer>
+        </Grid>
+
+
+    </Grid>
+
+
+</Window>

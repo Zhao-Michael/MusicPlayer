@@ -1,0 +1,460 @@
+﻿<Application x:Class="Application"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:MyMusicWPF"
+    StartupUri="MainWindow.xaml">
+
+    <Application.Resources>
+        <ResourceDictionary >
+
+            <Color x:Key="MainColor" A="180" R="229" G="20" B="0"/>
+
+            <SolidColorBrush x:Key="MainColorBrush" Color="#FFe51400" />
+
+            <local:valueplusoneConverter x:Key="valueplusoneConverter" />
+
+            <local:volto100Converter x:Key="volto100Converter" />
+
+            <local:volpathVisibility0Converter x:Key="volpathVisibility0Converter" />
+
+            <local:volpathopactiy33Converter x:Key="volpathopactiy33Converter" />
+
+            <local:volbtntooltipConverter x:Key="volbtntooltipConverter" />
+
+            <local:listboxitemcontextmenu  x:Key="listboxitemcontextmenu" />
+
+ 
+            <!-- 滚动条样式-->
+            <Style TargetType="ScrollBar" >
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ScrollBar">
+
+                            <Grid x:Name="GridRoot" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"  >
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition MaxHeight="18" />
+                                    <RowDefinition Height="0.00001*" />
+                                    <RowDefinition MaxHeight="18" />
+                                </Grid.RowDefinitions>
+                                <Border x:Name="scrollBorder" Opacity="1" BorderBrush="{DynamicResource MainColorBrush }" Margin="0"  Grid.RowSpan="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect Color="{DynamicResource MainColor }" ShadowDepth="0" BlurRadius="2"/>
+                                    </Border.Effect>
+                                </Border>
+                                <!--上按钮-->
+                                <RepeatButton x:Name="DecreaseRepeat"    Command="ScrollBar.LineUpCommand"  BorderBrush="Transparent"  >
+
+                                    <RepeatButton.Style>
+                                        <Style TargetType="RepeatButton" >
+
+
+                                            <Setter Property="Template" >
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Grid Margin="0,0,0,0" Name="Grid" Background="Transparent" Opacity="0.5" >
+                                                            <Path x:Name="TopArrow" Margin="5,4,5,4" Fill="{DynamicResource MainColorBrush }" Stroke="{DynamicResource MainColorBrush }"   Stretch="Fill"  StrokeThickness="1" Data="M5.2422477,11.132184 L11.5544,11.132184 8.6412958,4.4969033 z"  />
+                                                        </Grid>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger  Property="IsMouseOver" Value="true">
+                                                                <Trigger.EnterActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.5" To="0.9" Duration="0:0:0.3" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.EnterActions>
+                                                                <Trigger.ExitActions >
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.9" To="0.5" Duration="0:0:0.3" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.ExitActions>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </RepeatButton.Style>
+
+                                </RepeatButton>
+
+                                <Track Grid.Row="1" x:Name="PART_Track" IsDirectionReversed="True"   >
+
+                                    <Track.DecreaseRepeatButton>
+                                        <!--上空白-->
+                                        <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Style="{DynamicResource myScrollLongRepeatButtonStyle}"/>
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.Thumb  >
+                                        <!--滑块-->
+                                        <Thumb  MinHeight="30" Style="{DynamicResource myThumb}"  />
+                                    </Track.Thumb>
+                                    <Track.IncreaseRepeatButton>
+                                        <!--下空白-->
+                                        <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand"   Style="{DynamicResource myScrollLongRepeatButtonStyle}"/>
+                                    </Track.IncreaseRepeatButton>
+                                </Track>
+
+                                <!--下按钮-->
+                                <RepeatButton Grid.Row="2" x:Name="IncreaseRepeat" Command="ScrollBar.LineDownCommand"  Background="Transparent" BorderBrush="Transparent">
+                                    <RepeatButton.Style>
+                                        <Style TargetType="RepeatButton" >
+                                            <Setter Property="Template" >
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Grid Name="Grid" Margin="0,0,0,0" Opacity="0.5"  >
+                                                            <Path x:Name="BottomArrow" Margin="5,4,5,4"   VerticalAlignment="Stretch" Height="Auto" Fill="{DynamicResource MainColorBrush }" Stretch="Fill" Stroke="{DynamicResource MainColorBrush }" StrokeThickness="1" Data="M5.2422477,11.132184 L11.5544,11.132184 8.6412958,4.4969033 z" RenderTransformOrigin="0.5,0.5">
+                                                                <Path.RenderTransform>
+                                                                    <TransformGroup>
+                                                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                                        <SkewTransform AngleX="0" AngleY="0" />
+                                                                        <RotateTransform Angle="180" />
+                                                                        <TranslateTransform X="0" Y="0" />
+                                                                    </TransformGroup>
+                                                                </Path.RenderTransform>
+                                                            </Path>
+                                                        </Grid>
+                                                        <ControlTemplate.Triggers>
+                                                            <Trigger  Property="IsMouseOver" Value="true">
+                                                                <Trigger.EnterActions>
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.5" To="0.9" Duration="0:0:0.3" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.EnterActions>
+                                                                <Trigger.ExitActions >
+                                                                    <BeginStoryboard>
+                                                                        <Storyboard>
+                                                                            <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.9" To="0.5" Duration="0:0:0.3" />
+                                                                        </Storyboard>
+                                                                    </BeginStoryboard>
+                                                                </Trigger.ExitActions>
+                                                            </Trigger>
+                                                        </ControlTemplate.Triggers>
+                                                    </ControlTemplate>
+
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </RepeatButton.Style>
+                                </RepeatButton>
+
+                            </Grid>
+
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Orientation" Value="Horizontal">
+                                    <Setter Property="LayoutTransform" TargetName="GridRoot">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="-90" />
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter TargetName="PART_Track" Property="Orientation" Value="Vertical" />
+                                    <Setter Property="Command" Value="ScrollBar.LineLeftCommand" TargetName="DecreaseRepeat" />
+                                    <Setter Property="Command" Value="ScrollBar.LineRightCommand" TargetName="IncreaseRepeat" />
+                                    <Setter Property="Command" Value="ScrollBar.PageLeftCommand" TargetName="PageDown" />
+                                    <Setter Property="Command" Value="ScrollBar.PageRightCommand" TargetName="PageUp" />
+                                </Trigger>
+
+                                <!--<EventTrigger RoutedEvent="MouseEnter" >
+                                    <BeginStoryboard  >
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetName="scrollBorder" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard> 
+                                     
+                            </EventTrigger> 
+                            <EventTrigger RoutedEvent="MouseLeave" >
+                                    <BeginStoryboard  >
+                                        <Storyboard >
+                                            <DoubleAnimation Storyboard.TargetName="scrollBorder" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard> 
+                                     
+                            </EventTrigger>-->
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key ="myScrollLongRepeatButtonStyle"  TargetType="{x:Type RepeatButton}">
+
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="IsTabStop" Value="false" />
+                <Setter Property="Focusable" Value="false" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                            <Grid>
+                                <Rectangle x:Name="myRepeatButton" Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="{TemplateBinding BorderThickness}" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+
+                </Setter>
+
+            </Style>
+
+            <Style x:Key="myThumb" TargetType="Thumb" >
+
+                <Setter Property="Template" >
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Thumb" >
+                            <Grid Margin="0,1,0,1" x:Name="Grid" Opacity="0.4" Background="Transparent" >
+                                <Rectangle x:Name="HoverRectangle" MinHeight="25" Height="Auto"  Fill="{DynamicResource MainColorBrush}"   RadiusX="3" RadiusY="3"  Margin="5,-2,5,-2"   />
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger   Property="IsFocused" Value="True"/>
+                                <Trigger  Property="IsMouseOver" Value="true">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.4" To="0.7" Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions >
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.7" To="0.4" Duration="0:0:0.3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <Trigger   Property="IsEnabled" Value="False"/>
+                                <Trigger   Property="IsDragging" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.7" To="0.9" Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions >
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" From="0.9" To="0.7" Duration="0:0:0.2" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <!--  - - - - -  -->
+
+
+            <!-- ToolTip提示信息工具 -->
+            <Style TargetType="ToolTip"  >
+                <Setter  Property="Template" >
+                    <Setter.Value>
+                        <ControlTemplate >
+                            <Border >
+                                <Grid Margin="10" Background="Transparent">
+                                    <Border Background="White"  BorderBrush="{DynamicResource MainColorBrush }" BorderThickness="1">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="10" Color="{DynamicResource MainColor }" ShadowDepth="0"/>
+                                        </Border.Effect>
+                                    </Border>
+                                    <Border Margin="5">
+                                        <ContentPresenter TextBlock.TextAlignment="Justify"  Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                                    </Border>
+                                </Grid>
+
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <!--Simple Simple Slider-->
+            <Style TargetType="{x:Type Slider}">
+
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Slider}">
+                            <Grid x:Name="GridRoot" Background="{TemplateBinding Background }">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <!-- TickBar shows the ticks for Slider -->
+                                <TickBar Visibility="Collapsed" x:Name="TopTick" Height="5" SnapsToDevicePixels="True" Placement="Top" Fill="{DynamicResource MainColorBrush }"/>
+                                <!--<Border Grid.Row="1" Margin="0" x:Name="Border" Height="5" Background="White"  BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"/>-->
+
+                                <!-- The Track lays out the repeat buttons and thumb -->
+                                <Track Grid.Row="1" x:Name="PART_Track" IsDirectionReversed="False" >
+
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton  Command="Slider.DecreaseLarge">
+                                            <RepeatButton.Style>
+                                                <Style   TargetType="{x:Type RepeatButton}">
+
+                                                    <Setter Property="IsTabStop" Value="false" />
+                                                    <Setter Property="Focusable" Value="false" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type RepeatButton}">
+                                                                <Grid Margin="2">
+                                                                    <Rectangle   Height="5" Fill ="{DynamicResource MainColorBrush }"  Stroke="{DynamicResource MainColorBrush }"  StrokeThickness="1"  RadiusX="1" RadiusY="1" >
+                                                                        <Rectangle.Effect>
+                                                                            <DropShadowEffect BlurRadius="7" Color="White"  Opacity="0.7" ShadowDepth="0"/>
+                                                                        </Rectangle.Effect>
+                                                                    </Rectangle>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </RepeatButton.Style>
+                                        </RepeatButton>
+                                    </Track.DecreaseRepeatButton>
+
+                                    <Track.Thumb>
+                                        <Thumb>
+                                            <Thumb.Style >
+                                                <Style   TargetType="{x:Type Thumb}">
+                                                    <Setter Property="SnapsToDevicePixels" Value="true"/>
+                                                    <Setter Property="Height" Value="15"/>
+                                                    <Setter Property="Width" Value="15"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                                                <Grid>
+                                                                    <Ellipse x:Name="Ellipse" Fill="{DynamicResource MainColorBrush }" Stroke="White"  StrokeThickness="0">
+                                                                        <Ellipse.Effect>
+                                                                            <DropShadowEffect Color="Black" Opacity="0.6" BlurRadius="5" ShadowDepth="3"/>
+                                                                        </Ellipse.Effect>
+                                                                    </Ellipse>
+
+                                                                </Grid>
+
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </Thumb.Style>
+                                        </Thumb>
+                                    </Track.Thumb>
+
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="Slider.IncreaseLarge" >
+                                            <RepeatButton.Style>
+                                                <Style   TargetType="{x:Type RepeatButton}">
+                                                    <Setter Property="Background" Value="Transparent" />
+                                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                                    <Setter Property="IsTabStop" Value="false" />
+                                                    <Setter Property="Focusable" Value="false" />
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type RepeatButton}">
+                                                                <Grid Margin="2">
+                                                                    <Rectangle   Height="5" Fill ="White"  Stroke="White"  StrokeThickness="1"  RadiusX="1" RadiusY="1" >
+                                                                        <Rectangle.Effect>
+                                                                            <DropShadowEffect BlurRadius="5" Color="White" Opacity="0.5" ShadowDepth="0"/>
+                                                                        </Rectangle.Effect>
+                                                                    </Rectangle>
+                                                                </Grid>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Style>
+                                            </RepeatButton.Style>
+                                        </RepeatButton>
+                                    </Track.IncreaseRepeatButton>
+
+                                </Track>
+
+                                <TickBar Visibility="Collapsed" Grid.Row="2" x:Name="BottomTick" Height="4" SnapsToDevicePixels="True" Placement="Bottom" Fill="{TemplateBinding Foreground}"/>
+
+                            </Grid>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="TickPlacement" Value="TopLeft">
+                                    <Setter Property="Visibility" Value="Visible" TargetName="TopTick"/>
+                                </Trigger>
+                                <Trigger Property="TickPlacement" Value="BottomRight">
+                                    <Setter Property="Visibility" Value="Visible" TargetName="BottomTick"/>
+                                </Trigger>
+                                <Trigger Property="TickPlacement" Value="Both">
+                                    <Setter Property="Visibility" Value="Visible" TargetName="TopTick"/>
+                                    <Setter Property="Visibility" Value="Visible" TargetName="BottomTick"/>
+                                </Trigger>
+                                <!--<Trigger Property="IsEnabled" Value="false">
+                                    <Setter Property="Opacity"  Value="0.4" TargetName="Border" />
+                                </Trigger>-->
+
+                                <!-- Use a rotation to create a Vertical Slider form the default Horizontal -->
+                                <Trigger Property="Orientation" Value="Vertical">
+                                    <Setter Property="LayoutTransform" TargetName="GridRoot">
+                                        <Setter.Value>
+                                            <RotateTransform Angle="-90"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <!-- Track rotates itself based on orientation so need to force it back -->
+                                    <Setter TargetName="PART_Track" Property="Orientation" Value="Horizontal"/>
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+            <!-- 进度条   Simple SimpleProgressBar
+	        The template uses two Border controls to show the Track and Progress 
+	        Limitations : It only supports a horizontal orientated ProgressBar -->
+            <Style x:Key="SimpleProgressBar" TargetType="{x:Type ProgressBar}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ProgressBar}">
+                            <Grid>
+
+                                <!-- This Border is the track. It must be named PART_Track -->
+                                <Border x:Name="PART_Track" Background="Black"   BorderBrush="#353535"   BorderThickness="1" CornerRadius="6"/>
+
+                                <!-- This Border shows progress. It must be named PART_Indicator for the control to function -->
+                                <Border Background="Transparent"  HorizontalAlignment="Left"    x:Name="PART_Indicator">
+                                    <Grid>
+                                        <Rectangle   Stroke ="Transparent" StrokeThickness="4"    RadiusX="6" RadiusY="6">
+                                            <Rectangle.Fill>
+                                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1" >
+                                                    <GradientStop Color="Blue"  Offset="1" />
+                                                    <GradientStop x:Name="gs1" Color="LightBlue"    Offset="1"/>
+                                                    <GradientStop Color="Blue"  Offset="0"/>
+                                                </LinearGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Grid>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+
+
+        </ResourceDictionary>
+
+
+        <!--<Color x:Key="MainColor"  R="255" G="192" B="203"/>
+        <SolidColorBrush x:Key="MainColorBrush" Color="Pink" />-->
+
+    </Application.Resources>
+
+</Application>
