@@ -10,9 +10,13 @@ Public Class SearchLRC
 
     Public mainwin As MainWindow
 
-    Sub New(_music As Music)
+    Sub New(_music As Music, mainform As MainWindow)
+
+        mainwin = mainform
 
         InitializeComponent()
+
+        Background = mainwin.nowcolor_rect.Fill
 
         music = _music
     End Sub
@@ -155,10 +159,10 @@ Public Class SearchLRC
     End Sub
 
     Private Sub UnLoadWinAni_Completed(sender As Object, e As EventArgs)
+
         IsCloseFormReal = True
 
         DialogResult = True
-
 
         Close()
 
@@ -207,7 +211,7 @@ Public Class SearchLRC
         Dim maingrid As Grid = LogicalTreeHelper.FindLogicalNode(mywin, "MainGrid")
         Dim sb As Storyboard = maingrid.FindResource("ShowMsgAni")
 
-        Dim border As Border = sender
+        Dim border As Grid = sender
         If border IsNot Nothing Then
 
             Dim content As ContentControl = border.TemplatedParent

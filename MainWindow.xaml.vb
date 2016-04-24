@@ -1226,9 +1226,7 @@ Class MainWindow
 
         Dim music As Music = CType(mylistbox.SelectedItem, Music)
 
-        Dim searchForm = New SearchLRC(music)
-
-        searchForm.mainwin = Me
+        Dim searchForm = New SearchLRC(music, Me)
 
         searchForm.textboxTitle.Text = music.MusicTitle
 

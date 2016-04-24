@@ -860,7 +860,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                        <Grid x:Name="Grid" ToolTipService.ShowDuration="100000" ToolTipOpening="Grid_ToolTipOpening"   Background="Transparent" Margin="2,1"  MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"  >
+                        <Grid x:Name="Grid" ToolTipService.ShowDuration="100000" ToolTipOpening="Grid_ToolTipOpening" ToolTipService.Placement="Left" ToolTipService.PlacementTarget="{Binding ElementName=Grid}"  Background="Transparent" Margin="2,1"  MouseLeftButtonDown="ListBoxItem_MouseLeftButtonDown"  >
 
                             <Grid.ToolTip >
                                 <ToolTip>
@@ -1420,7 +1420,7 @@
                 </TextBlock.Effect>
             </TextBlock>
 
-            <TextBox Name="SearchTextBox" Template="{StaticResource SearchTextBoxControlTemplate}" Height="22" Foreground="{DynamicResource MainColorBrush }" TextElement.FontWeight="Bold" FontSize="14" VerticalContentAlignment="Center" TextWrapping="NoWrap" Margin="0,4,136,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="162"  />
+            <TextBox Name="SearchTextBox" Template="{StaticResource SearchTextBoxControlTemplate}" Height="22" Foreground="{DynamicResource MainColorBrush }" TextElement.FontWeight="Bold" FontSize="14" VerticalContentAlignment="Center" TextWrapping="NoWrap" Margin="0,4,136,0" VerticalAlignment="Top" Grid.Column="1" HorizontalAlignment="Right" Width="162" SelectionBrush="#FFFCFEFF" CaretBrush="{DynamicResource MainColorBrush}"  />
 
             <MediaElement x:Name="MusicPlayer" MediaOpened="MusicPlayer_MediaOpened" d:IsHidden="True"  MediaEnded="MusicPlayer_MediaEnded" LoadedBehavior="Manual"  Volume="0.3" Height="0" VerticalAlignment="Top"/>
 
