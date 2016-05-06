@@ -218,6 +218,10 @@ Class MainWindow
         Dim volslider As Slider = LogicalTreeHelper.FindLogicalNode(mywin, "volslider")
         volslider.Value = My.Settings.Vol
 
+        Dim Title_Grid As Grid = LogicalTreeHelper.FindLogicalNode(mywin, "MusicIcon_Grid")
+        Dim temp_menuitem As System.Windows.Controls.MenuItem = Title_Grid.ContextMenu.Items(5)
+        temp_menuitem.IsChecked = My.Settings.ShowLRC
+
         '载入上次播放的音乐
         If My.Settings.MusicLoc <> "" Then
             MusicPlayer.Source = New Uri(My.Settings.MusicLoc, UriKind.Absolute)
