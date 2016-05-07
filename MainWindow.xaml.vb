@@ -33,7 +33,7 @@ Class MainWindow
         MyBase.OnSourceInitialized(e)
         Dim hwndSource As HwndSource = PresentationSource.FromVisual(Me)
         If hwndSource IsNot Nothing Then
-            hwndSource.AddHook(New HwndSourceHook(AddressOf WndProc))
+            'hwndSource.AddHook(New HwndSourceHook(AddressOf WndProc))
         End If
     End Sub
 
@@ -52,7 +52,6 @@ Class MainWindow
             Case WM_NCRBUTTONUP
 
                 Dim title_ContextMenu As Grid = LogicalTreeHelper.FindLogicalNode(mywin, "MusicIcon_Grid")
-
                 title_ContextMenu.ContextMenu.IsOpen = True
 
                 handled = True
@@ -788,18 +787,18 @@ Class MainWindow
                 Dim flag As Boolean = LoadLRC()
 
                 m_LrcPanel.m_ItemControl.Visibility = Windows.Visibility.Visible
-                MusicImage.Visibility = Windows.Visibility.Collapsed
+                MusicImage.Opacity = 0
                 InfoGrid.Visibility = Windows.Visibility.Collapsed
             Else
 
                 m_LrcPanel.m_ItemControl.Visibility = Windows.Visibility.Hidden
-                MusicImage.Visibility = Windows.Visibility.Visible
+                MusicImage.Opacity = 1
                 InfoGrid.Visibility = Windows.Visibility.Visible
 
             End If
         Catch ex As Exception
             m_LrcPanel.m_ItemControl.Visibility = Windows.Visibility.Hidden
-            MusicImage.Visibility = Windows.Visibility.Visible
+            MusicImage.Opacity = 1
             InfoGrid.Visibility = Windows.Visibility.Visible
 
             m_LrcPanel.timer.Stop()
@@ -1161,7 +1160,7 @@ Class MainWindow
         My.Settings.Save()
         If lrcshow.IsChecked = False Then
             m_LrcPanel.Visibility = Windows.Visibility.Collapsed
-            MusicImage.Visibility = Windows.Visibility.Visible
+            MusicImage.Opacity = 1
             InfoGrid.Visibility = Windows.Visibility.Visible
         Else
             Dim flag As Boolean = LoadLRC()
@@ -1173,7 +1172,7 @@ Class MainWindow
             End If
 
             m_LrcPanel.Visibility = Windows.Visibility.Visible
-            MusicImage.Visibility = Windows.Visibility.Collapsed
+            MusicImage.Opacity = 0
             InfoGrid.Visibility = Windows.Visibility.Collapsed
             m_LrcPanel.InvalidateArrange()
         End If
