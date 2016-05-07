@@ -966,7 +966,7 @@
                                                 <StackPanel>
                                                     <TextBlock Text="播放器音量：" Margin="5" MouseWheel="volbtn_MouseWheel"/>
                                                     <StackPanel Orientation="Horizontal" MouseWheel="volbtn_MouseWheel">
-                                                        <Slider x:Name="volslider" Value="{Binding Volume , ElementName=MusicPlayer }"   Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Minimum="0" Maximum="1" SmallChange="0.02" LargeChange="0.05"   Width="124"  ToolTip="双击静音" />
+                                                        <Slider x:Name="volslider" Value="{Binding Volume , ElementName=MusicPlayer }"   Margin="5" HorizontalAlignment="Center" VerticalAlignment="Center" Minimum="0" Maximum="1" SmallChange="0.02" LargeChange="0.05"   Width="124"    />
                                                         <TextBlock x:Name="voltxt" MouseLeftButtonDown="voltxt_MouseLeftButtonDown" Text="{Binding Value, ElementName=volslider, Converter={StaticResource volto100Converter } }" TextAlignment="Center" VerticalAlignment="Center" Margin="5"/>
                                                         <CheckBox Name="exevolchecked" VerticalAlignment="Center" Margin="5" ToolTipService.BetweenShowDelay="100" ToolTipService.ShowDuration="10000" Content="静音" IsChecked="{Binding IsMuted, ElementName=MusicPlayer}"   />
                                                     </StackPanel>
