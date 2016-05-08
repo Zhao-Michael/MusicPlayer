@@ -441,6 +441,11 @@ Class MainWindow
                                                  taskbar.ProgressValue = sliderProgress.Value / sliderProgress.Maximum
                                                  currentPos = MusicPlayer.Position
                                              End If
+
+                                             Dim locfromwin As Point = MusicImage.TranslatePoint(New Point(0, 0), Me)
+                                             taskbar.ThumbnailClipMargin = New Thickness(locfromwin.X + 1, locfromwin.Y, ActualWidth - MusicImage.ActualWidth - locfromwin.X, ActualHeight - MusicImage.ActualHeight - locfromwin.Y + 1)
+
+
                                          End Sub))
             Thread.Sleep(1000)
         End While
