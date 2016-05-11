@@ -33,7 +33,7 @@ Class MainWindow
         MyBase.OnSourceInitialized(e)
         Dim hwndSource As HwndSource = PresentationSource.FromVisual(Me)
         If hwndSource IsNot Nothing Then
-            hwndSource.AddHook(New HwndSourceHook(AddressOf WndProc))
+            'hwndSource.AddHook(New HwndSourceHook(AddressOf WndProc))
         End If
     End Sub
 
@@ -52,7 +52,6 @@ Class MainWindow
             Case WM_NCRBUTTONUP
 
                 Dim title_ContextMenu As Grid = LogicalTreeHelper.FindLogicalNode(mywin, "MusicIcon_Grid")
-
                 title_ContextMenu.ContextMenu.IsOpen = True
 
                 handled = True
@@ -217,6 +216,10 @@ Class MainWindow
         '载入音量
         Dim volslider As Slider = LogicalTreeHelper.FindLogicalNode(mywin, "volslider")
         volslider.Value = My.Settings.Vol
+
+        Dim Title_Grid As Grid = LogicalTreeHelper.FindLogicalNode(mywin, "MusicIcon_Grid")
+        Dim temp_menuitem As System.Windows.Controls.MenuItem = Title_Grid.ContextMenu.Items(5)
+        temp_menuitem.IsChecked = My.Settings.ShowLRC
 
         '载入上次播放的音乐
         If My.Settings.MusicLoc <> "" Then
@@ -438,6 +441,11 @@ Class MainWindow
                                                  taskbar.ProgressValue = sliderProgress.Value / sliderProgress.Maximum
                                                  currentPos = MusicPlayer.Position
                                              End If
+
+                                             Dim locfromwin As Point = MusicImage.TranslatePoint(New Point(0, 0), Me)
+                                             taskbar.ThumbnailClipMargin = New Thickness(locfromwin.X + 1, locfromwin.Y, ActualWidth - MusicImage.ActualWidth - locfromwin.X, ActualHeight - MusicImage.ActualHeight - locfromwin.Y + 1)
+
+
                                          End Sub))
             Thread.Sleep(1000)
         End While
@@ -784,18 +792,18 @@ Class MainWindow
                 Dim flag As Boolean = LoadLRC()
 
                 m_LrcPanel.m_ItemControl.Visibility = Windows.Visibility.Visible
-                MusicImage.Visibility = Windows.Visibility.Collapsed
+                MusicImage.Opacity = 0
                 InfoGrid.Visibility = Windows.Visibility.Collapsed
             Else
 
                 m_LrcPanel.m_ItemControl.Visibility = Windows.Visibility.Hidden
-                MusicImage.Visibility = Windows.Visibility.Visible
+                MusicImage.Opacity = 1
                 InfoGrid.Visibility = Windows.Visibility.Visible
 
             End If
         Catch ex As Exception
             m_LrcPanel.m_ItemControl.Visibility = Windows.Visibility.Hidden
-            MusicImage.Visibility = Windows.Visibility.Visible
+            MusicImage.Opacity = 1
             InfoGrid.Visibility = Windows.Visibility.Visible
 
             m_LrcPanel.timer.Stop()
@@ -1157,7 +1165,7 @@ Class MainWindow
         My.Settings.Save()
         If lrcshow.IsChecked = False Then
             m_LrcPanel.Visibility = Windows.Visibility.Collapsed
-            MusicImage.Visibility = Windows.Visibility.Visible
+            MusicImage.Opacity = 1
             InfoGrid.Visibility = Windows.Visibility.Visible
         Else
             Dim flag As Boolean = LoadLRC()
@@ -1169,7 +1177,7 @@ Class MainWindow
             End If
 
             m_LrcPanel.Visibility = Windows.Visibility.Visible
-            MusicImage.Visibility = Windows.Visibility.Collapsed
+            MusicImage.Opacity = 0
             InfoGrid.Visibility = Windows.Visibility.Collapsed
             m_LrcPanel.InvalidateArrange()
         End If
