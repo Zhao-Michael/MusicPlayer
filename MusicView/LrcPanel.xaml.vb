@@ -110,9 +110,9 @@ Public Class LrcPanel
         End Set
     End Property
 
-    Public Shared ReadOnly currentPosProperty As DependencyProperty = _
-                           DependencyProperty.Register("currentPos", _
-                           GetType(Integer), GetType(LrcPanel), _
+    Public Shared ReadOnly currentPosProperty As DependencyProperty =
+                           DependencyProperty.Register("currentPos",
+                           GetType(Integer), GetType(LrcPanel),
                            New PropertyMetadata(0))
 
 
@@ -131,7 +131,7 @@ Public Class LrcPanel
     End Function
 
 
-    Sub SetSource(_list_lrc As LrcData_List, _music As Music)
+    Sub SetSource(ByVal _list_lrc As LrcData_List, _music As Music)
 
         list_height.Clear()
 
@@ -176,5 +176,5 @@ Public Class LrcPanel
     End Sub
 
 
- 
+
 End Class

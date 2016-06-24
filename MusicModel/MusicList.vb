@@ -16,8 +16,6 @@ Class MyComparer
 End Class
 
 
-
-
 Class MusicList
     Inherits ObservableCollection(Of Music)
 
@@ -171,6 +169,7 @@ Class MusicList
 
 
 End Class
+
 
 Public Class Music
 

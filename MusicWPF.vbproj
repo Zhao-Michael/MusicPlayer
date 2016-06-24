@@ -71,7 +71,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>mymusic.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\mymusic.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -130,7 +130,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="LrcPanel.xaml">
+    <Page Include="MusicView\LrcPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -145,14 +145,20 @@
     <Compile Include="LoadForm.xaml.vb">
       <DependentUpon>LoadForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="LrcPanel.xaml.vb">
+    <Compile Include="MusicModel\LRC.vb" />
+    <Compile Include="MusicModel\MusicAPI.vb" />
+    <Compile Include="MusicView\LrcPanel.xaml.vb">
       <DependentUpon>LrcPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.vb">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SearchLRC.xaml">
+    <Page Include="MusicView\SearchLRC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,13 +183,17 @@
     <Import Include="System.Windows.Navigation" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MusicList.vb" />
-    <Compile Include="SearchLRC.xaml.vb">
+    <Compile Include="MusicModel\MusicList.vb" />
+    <Compile Include="MusicView\SearchLRC.xaml.vb">
       <DependentUpon>SearchLRC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TestWindow.xaml.vb">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Util\Util.vb" />
     <Compile Include="ValueConverter.vb" />
     <Compile Include="查看文件的属性框.vb" />
-    <Compile Include="MP3ToImage.vb" />
+    <Compile Include="MusicModel\MP3ToImage.vb" />
     <Compile Include="My Project\AssemblyInfo.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -279,16 +289,16 @@
     <None Include="Resources\CoreAudioApi.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Frozen.jpg" />
+    <Resource Include="Resources\Frozen.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Default_MusciImage.png" />
+    <Resource Include="Resources\Default_MusciImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="mymusic.ico" />
+    <Resource Include="Resources\mymusic.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="mm.png" />
+    <Resource Include="Resources\mm.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

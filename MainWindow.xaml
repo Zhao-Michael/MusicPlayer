@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         x:Name="MainWindow"
         Title="我的音乐播放器"  MinHeight="510" MinWidth="725" Height="510" Width="725" SnapsToDevicePixels="True"  
-        ResizeMode="CanResizeWithGrip"  WindowStartupLocation="CenterScreen" Icon="mymusic.ico" WindowState="Minimized"  >
+        ResizeMode="CanResizeWithGrip"  WindowStartupLocation="CenterScreen" Icon="Resources/mymusic.ico" WindowState="Minimized"  >
 
     <Window.Resources>
 
@@ -53,7 +53,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
 
-        
+
 
         <ControlTemplate x:Key="btn_min" TargetType="{x:Type Button}" >
             <Grid>
@@ -343,7 +343,7 @@
 
         </Style>
 
-        
+
 
         <Style x:Key="playbtn" TargetType="{x:Type ToggleButton}">
             <Setter Property="Focusable" Value="False" />
