@@ -1,11 +1,23 @@
 ﻿Imports System.Text.RegularExpressions
-
+Imports MyMusicWPF.Net
 
 Public Structure NetMusic
 
     Dim lrcstring As String
 
-    Dim mp3url As String
+    Dim mp3_url As String
+
+    Dim title As String
+
+    Dim author As String
+
+    Dim mp3url As Uri
+
+    Sub GetActualUri()
+
+
+
+    End Sub
 
 End Structure
 
@@ -14,7 +26,10 @@ Public Class Music_itwusun
     'http://ws.itwusun.com/search/song/taylor%20swift
 
 
-    Shared Function Search(ParamArray content() As String) As String
+
+    Shared Function Search(ParamArray content() As String) As List(Of NetMusic)
+
+        Dim list As New List(Of NetMusic)
 
         Dim urlend As String = Nothing
 
@@ -24,11 +39,31 @@ Public Class Music_itwusun
 
         Dim url As String = "http://ws.itwusun.com/search/song/" + urlend.Substring(0, urlend.Length - 3)
 
-        Return url
+        Dim html = DownStringFromNet(url).Split(New String() {"<div id=""song-list"" class=""table-responsive"">"}, StringSplitOptions.RemoveEmptyEntries)(1) _
+        .Split(New String() {"<div class=""nextpage"">"}, StringSplitOptions.RemoveEmptyEntries)(0)
+
+
+        Dim result = Regex.Matches(html, "type=""\w{1,10}""\s+id=""\w{3,}""\s{1}name="".*""\s{1}")
+
+        For index = 0 To result.Count - 1
+
+            Dim temp = result.Item(index).ToString()
+
+            Dim arr = temp.Split("""")
+
+            Dim t_NetMusic As New NetMusic
+
+            t_NetMusic.mp3_url = "http://ws.itwusun.com/fsong/" + arr(1) + "/id_" + arr(3) + ".html"
+
+            t_NetMusic.title = arr(5)
+
+            list.Add(t_NetMusic)
+
+        Next
+
+        Return list
 
     End Function
-
-
 
 
 End Class
@@ -45,9 +80,9 @@ Public Class Music_cnlyric
         '中文歌曲
         If HaveChinese(title) Then
 
-            Dim lrc_uri As String = "http://www.cnlyric.com/search.php?k=" + chineseToHex(title) + "&t=s"
+            Dim lrc_uri As String = "http://www.cnlyric.com/search.php?k=" + ChineseToHex(title) + "&t=s"
 
-            Dim http_downstr = DownStringFromNetAsync(lrc_uri)
+            Dim http_downstr = DownStringFromNet(lrc_uri)
 
             Dim lrcpart = Regex.Matches(http_downstr, ">\d{1,}\.<")
 
@@ -68,7 +103,7 @@ Public Class Music_cnlyric
 
             For Each item In temp_list_lrcurls
 
-                list_lrcurls.Add(New LrcUrlInfo With {.content = DownStringFromNetAsync(item.url), .url = item.url})
+                list_lrcurls.Add(New LrcUrlInfo With {.content = DownStringFromNet(item.url), .url = item.url})
 
             Next
 
@@ -84,7 +119,7 @@ Public Class Music_cnlyric
 
             Dim lrcUri As String = "http://syair.info/search/?artist=" + artist + "&title=" + title + "&format=lrc"
 
-            Dim result As String = DownStringFromNetAsync(lrcUri)
+            Dim result As String = DownStringFromNet(lrcUri)
 
 
 
@@ -102,7 +137,7 @@ Public Class Music_cnlyric
 
             For Each item In temp_list_lrcurls
 
-                Dim lrcTexts = Regex.Matches(DownStringFromNetAsync(item.url), "\[(.+)<br />")
+                Dim lrcTexts = Regex.Matches(DownStringFromNet(item.url), "\[(.+)<br />")
 
                 Dim content As String = ""
 

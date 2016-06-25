@@ -19,6 +19,8 @@ Imports CoreAudioApi
 #End If
 Imports System.Threading
 
+Imports MyMusicWPF.Net
+
 Class MainWindow
 
 
@@ -1695,7 +1697,7 @@ Class MainWindow
 
         Else
 
-            Dim lrcpath As String = "http://www.cnlyric.com/search.php?k=" + chineseToHex(findobject) + "&t=s"
+            Dim lrcpath As String = "http://www.cnlyric.com/search.php?k=" + ChineseToHex(findobject) + "&t=s"
             Dim http_temp = http.DownloadString(lrcpath)
             Dim lrccount = Regex.Matches(http_temp, ">\d{1,}\.<")
         End If

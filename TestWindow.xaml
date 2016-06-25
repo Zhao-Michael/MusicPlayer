@@ -5,17 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyMusicWPF"
         mc:Ignorable="d"
-        Title="测试窗体" Height="257.511" Width="372.103" WindowStartupLocation="CenterScreen">
+        Title="测试窗体" Height="253.743" Width="363.938" WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="187*"/>
             <RowDefinition Height="40"/>
-
         </Grid.RowDefinitions>
 
-        <TextBlock Name="textview"  TextWrapping="Wrap" Grid.Column="0" />
+        <ScrollViewer>
+            <TextBox Name="textview">
 
-        <Button Name="btn1" Content="测试" Click="btn1_Click"  Grid.Row="1" Width="100" Height="30"  />
+            </TextBox>
+        </ScrollViewer>
+
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" >
+            <Button Name="btn1" Content="测试1" Click="btn1_Click"  Width="100" Height="30"  />
+            <Button Name="btn2" Content="测试2" Click="btn2_Click"  Grid.Row="1" Width="100" Height="30" />
+            <Button Name="btn3" Content="测试3" Click="btn3_Click"  Grid.Row="1" Width="100" Height="30" />
+        </StackPanel>
+
 
     </Grid>
 </Window>

@@ -12,6 +12,7 @@ End Structure
 
 
 Public Class LrcData_List
+
     Inherits ObservableCollection(Of LrcData)
 
     Dim sort_list As List(Of LrcData)
@@ -46,7 +47,6 @@ Public Class LrcData
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
     Public mainwin As MainWindow
-
 
 
     Public Overloads Function CompareTo(ByVal obj As Object) As Integer Implements IComparable.CompareTo
